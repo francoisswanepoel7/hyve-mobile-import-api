@@ -112,11 +112,11 @@ func insertCompleted(validated *CSVDataValidated) {
 func insertExported(contact_id string) {
 	db := initdb()
 	defer db.Close()
-	insert, err := db.Prepare("INSERT INTO processed(exported, contact_id) VALUES ( ?, ? )")
+	update, err := db.Prepare("UPDATE processed SET exported = ? WHERE contact_id = ?")
 	if err != nil {
 		log.Fatalln(err)
 	}
-	insert.Exec(1, contact_id)
+	update.Exec(1, contact_id)
 
 }
 
